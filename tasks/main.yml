@@ -1,0 +1,11 @@
+---
+# tasks file for ansible-role-start-spark-container
+
+- name: Creating container {{ cont_name }} based on image
+  command: docker run --restart unless-stopped -i -p 4040:4040 -p 8080:8080 -p 8081:8081 -h {{ cont_name }} --name={{ cont_name }} sparkimg
+
+- name: check container status
+  command: docker ps
+  register: result
+- debug: var=result.stdout
+
